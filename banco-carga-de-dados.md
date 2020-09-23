@@ -9,7 +9,7 @@ O fluxo básico para a atualização é:
 - Desabilitar verificação de chaves estrangeiras
 - Desabilitar verificação de chaves únicas
 - Iniciar a transação
-- Aplicar as modificações no dados (INSERT, UPDATE e DELETE)
+- Aplicar as modificações no dados (LOAD DATA, INSERT, UPDATE e DELETE)
 - Atualizar / reorganizar os índices da tabela, eliminar fragmentação de dados, otimizar o espaço em disco
 - Habilitar tudo que foi desabilitado anteriormente
 
@@ -37,7 +37,7 @@ SET foreign_key_checks=0;
 ALTER TABLE `table1` DISABLE KEYS;
 
 BEGIN;
-... atualização aqui (INSERT, UPDATE e DELETE) ...
+... atualização aqui (LOAD DATA, INSERT, UPDATE, DELETE) ...
 COMMIT;
 
 ALTER TABLE `table1` ENABLE KEYS;
@@ -118,6 +118,7 @@ SET foreign_key_checks=1;
 
 ```sql
 -- Os campos versao e chave são PKs
+-- O campo versão pode ser por exemplo a data e hora no formato YYYYmmddHHmmss
 
 SET autocommit=0; 
 SET unique_checks=0; 
@@ -126,10 +127,14 @@ SET foreign_key_checks=0;
 ALTER TABLE `table1` DISABLE KEYS;
 
 BEGIN;
-INSERT INTO `table1` (chave,versao,...) VALUES ('1',2,...);
-INSERT INTO `table1` (chave,versao,...) VALUES ('2',2,...);
-INSERT INTO `table1` (chave,versao,...) VALUES ('3',2,...);
-DELETE FROM `table1` WHERE versao <> 2;
+INSERT INTO `table1` (chave,versao,...) VALUES ('1','2',...);
+INSERT INTO `table1` (chave,versao,...) VALUES ('2','2',...);
+INSERT INTO `table1` (chave,versao,...) VALUES ('3','2',...);
+COMMIT;
+
+BEGIN;
+UPDATE `controle_versao` SET `versao` = '2' WHERE `table` = 'table1';
+DELETE FROM `table1` WHERE `versao` <> '2';
 COMMIT;
 
 ALTER TABLE `table1` ENABLE KEYS;
