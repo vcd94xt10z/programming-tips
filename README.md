@@ -9,26 +9,26 @@ apenas 1 lugar atualiza e todos os outros só consultam informações.
 
 O fluxo básico para a atualização é:
 - Desabilitar auto commit
-- Desabilitar chaves estrangeiras
-- Desabilitar chaves unicas
+- Desabilitar verificação de chaves estrangeiras
+- Desabilitar verificação de chaves únicas
 - Iniciar a transação
-- Aplicar as modificações no dados
-- Atualizar os indices da tabela
+- Aplicar as modificações no dados (INSERT,UPDATE,DELETE)
+- Atualizar / reorganizar os indices da tabela, eliminar fragmentação de dados, otimizar o espaço em disco
 - Habilitar tudo que foi desabilitado anteriormente
 
 ### MyISAM
-- Suporta transação: Não [Fonte](https://dev.mysql.com/doc/refman/5.6/en/myisam-storage-engine.html)
-- Nível de Bloqueio: Tabela [Fonte](https://dev.mysql.com/doc/refman/5.7/en/internal-locking.html)
+- Suporta transação: Não [(fonte)](https://dev.mysql.com/doc/refman/5.6/en/myisam-storage-engine.html){:target="_blank"}
+- Nível de Bloqueio: Tabela [(fonte)](https://dev.mysql.com/doc/refman/5.7/en/internal-locking.html){:target="_blank"}
 
 ### InnoDB
-- Suporta transação: Sim [Fonte](https://dev.mysql.com/doc/refman/8.0/en/innodb-transaction-model.html)
-- Nível de Bloqueio: Linha [Fonte](https://dev.mysql.com/doc/refman/5.7/en/innodb-locking.html#:~:text=InnoDB%20performs%20row%2Dlevel%20locking,gap%E2%80%9D%20before%20that%20index%20record.)  
+- Suporta transação: Sim [(fonte)](https://dev.mysql.com/doc/refman/8.0/en/innodb-transaction-model.html){:target="_blank"}
+- Nível de Bloqueio: Linha [(fonte)](https://dev.mysql.com/doc/refman/5.7/en/innodb-locking.html#:~:text=InnoDB%20performs%20row%2Dlevel%20locking,gap%E2%80%9D%20before%20that%20index%20record.){:target="_blank"}
 
 ## Outras informações
-- Não executar comandos DDL dentro de uma transação [Fonte](https://dev.mysql.com/doc/refman/8.0/en/implicit-commit.html)
-- LOAD DATA geralmente é 20x mais rápido que insert [Fonte](https://dev.mysql.com/doc/refman/5.7/en/insert-optimization.html)
+- Não executar comandos DDL dentro de uma transação [(fonte)](https://dev.mysql.com/doc/refman/8.0/en/implicit-commit.html){:target="_blank"}
+- LOAD DATA geralmente é 20x mais rápido que insert [(fonte)](https://dev.mysql.com/doc/refman/5.7/en/insert-optimization.html){:target="_blank"}
 - Desabilitar verificações, indices etc antes de atualização pois se tiver habilitado, a cada modificação na linha
-o banco terá que atualizar o indice. Os indices devem ser atualizados apenas após a atualização concluir [Fonte](https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-bulk-data-loading.html)
+o banco terá que atualizar o indice. Os indices devem ser atualizados apenas após a atualização concluir [(fonte)](https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-bulk-data-loading.html){:target="_blank"}
 
 ### Bloco padrão para desabilitar / habilitar as verificações
 
