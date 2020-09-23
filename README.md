@@ -17,7 +17,7 @@ O fluxo básico para a atualização é:
 - Habilitar tudo que foi desabilitado anteriormente
 
 ### MyISAM
-- Suporta transação: Não [(fonte)](https://dev.mysql.com/doc/refman/5.6/en/myisam-storage-engine.html){:target="_blank"}
+- Suporta transação: Não [fonte](https://dev.mysql.com/doc/refman/5.6/en/myisam-storage-engine.html){:target="_blank"}
 - Nível de Bloqueio: Tabela [(fonte)](https://dev.mysql.com/doc/refman/5.7/en/internal-locking.html){:target="_blank"}
 
 ### InnoDB
