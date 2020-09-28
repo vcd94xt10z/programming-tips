@@ -9,7 +9,7 @@ O fluxo básico para a atualização é:
 - Desabilitar verificação de chaves estrangeiras
 - Desabilitar verificação de chaves únicas
 - Iniciar a transação
-- Aplicar as modificações no dados (LOAD DATA, INSERT, UPDATE e DELETE)
+- Aplicar as modificações no dados (LOAD DATA, INSERT, UPDATE, DELETE e REPLACE)
 - Atualizar / reorganizar os índices da tabela, eliminar fragmentação de dados, otimizar o espaço em disco
 - Habilitar tudo que foi desabilitado anteriormente
 
@@ -37,7 +37,7 @@ SET foreign_key_checks=0;
 ALTER TABLE `table1` DISABLE KEYS;
 
 BEGIN;
-... atualização aqui (LOAD DATA, INSERT, UPDATE, DELETE) ...
+... atualização aqui (LOAD DATA, INSERT, UPDATE, DELETE e REPLACE) ...
 COMMIT;
 
 ALTER TABLE `table1` ENABLE KEYS;
