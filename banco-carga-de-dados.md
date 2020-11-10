@@ -26,6 +26,8 @@ O fluxo básico para a atualização é:
 - LOAD DATA geralmente é 20x mais rápido que INSERT [(fonte)](https://dev.mysql.com/doc/refman/5.7/en/insert-optimization.html)
 - Desabilitar verificações, índices etc antes de atualização pois se tiver habilitado, a cada modificação na linha
 o banco terá que atualizar o índice. Os índices devem ser atualizados apenas após a atualização concluir [(fonte)](https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-bulk-data-loading.html)
+- Transações não afetam tabelas temporárias e vice versa [fonte](https://dev.mysql.com/doc/refman/8.0/en/implicit-commit.html)
+- Não deixe a transação aberta sem fazer nenhuma operação por muito tempo, isso aumenta significamente a chance do banco travar porque outras theads terão que esperar a transação ser concluída para continuar o processamento. Resumindo, faça o que tem que ser feito e dê commit ou rollback o mais rápido possível.
 
 ### Bloco padrão para desabilitar / habilitar as verificações
 
